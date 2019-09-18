@@ -1,0 +1,118 @@
+<style>
+  /* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  #map {
+    height: 70%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+
+
+  agm-map {
+    height: 70%;
+  }
+
+
+</style>
+
+
+
+<main>
+
+
+  <div id="breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="listdoctors">List Doctors</a></li>
+        <li>View on map</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  <!-- /filters -->
+  <div class="container margin_60_35" *ngFor="let doc of listdoctordetail">
+
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <form>
+
+          <div class="col-md-6">
+            <div class="box_list wow fadeIn">
+              <figure>
+
+                <a href="">
+                <img src="assets/img/doctor.jpg" class="img-fluid" alt="">
+                <div class="preview"><span>Read more</span></div>
+                </a>
+              </figure>
+              <div class="wrapper">
+                <small>{{doc.specialty.name}}</small>
+                <h3>DR. {{doc.lastName}} {{doc.firstName}}</h3>
+                <p>{{doc.description}}</p>
+                <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="assets/img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+              </div>
+              <ul>
+                <!-- <li><a href="#0" onclick="onHtmlClick('Doctors', 0)"><i class="icon_pin_alt"></i>View on map</a></li> -->
+                <li><a href=""><i class="icon_pin_alt"></i>View on map</a></li>
+                <li><a href="1" target="_blank"><i class="icon_pin_alt"></i>Directions</a></li>
+                <li><a href="">Book now</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+    <!-- /row -->
+
+    <!-- /register -->
+  </div>
+
+
+  <input type="hidden" name="total" id="total" value="">
+
+  <input type="hidden" name="depart" placeholder="Départ" id="depart" /><br><br>
+  <input type="hidden" name="l1" id="l1" />
+  <input type="hidden" name="la1" id="la1" />
+
+
+
+  <input hidden type="text" name="destination" placeholder="Destination" id="destination" style="width: 75%" required />
+
+
+<div *ngFor="let doc of listdoctordetail">
+  <input type="hidden" name="l2" id="l2" value="{{doc.latitude}}"> <!--latitude-->
+  <input type="hidden" name="la2" id="la2" value="{{doc.longitude}}"> <!--longitude-->
+</div>
+
+  <br>
+
+
+  <br><br>
+
+  <div id="floating-panel" hidden>
+    <select id="mode" type="hidden">
+      <option value="DRIVING" selected>Driving</option>
+      <option value="WALKING">Walking</option>
+      <option value="BICYCLING">Bicycling</option>
+      <option value="TRANSIT">Transit</option>
+    </select>
+  </div>
+
+  <!-- /container -->
+</main>
+
+<div id="map" hidden>
+
+</div>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-direction [origin]="origin" [destination]="destination">
+  </agm-direction>
+</agm-map>

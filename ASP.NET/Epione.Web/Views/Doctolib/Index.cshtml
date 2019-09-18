@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-xl-12 col-lg-12">
+                <h2>Doctors whose name starts with en ligne</h2>
+                <p>
+                    <a style="margin-right: 20px;text-decoration: none;" href="@Url.Action("Index","Doctolib")">NEW RESERVABLE DOCTORS </a>
+                    @foreach (char c in ViewBag.alphabet)
+                    {
+                        <a style="margin-right: 5px;" href="@Url.Action("FirstLettre","Doctolib", new { id = @c })">@c</a>
+                    }
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    @foreach (var doctor in ViewBag.result)
+                    {
+                        <div class="col-md-3" style="width: 25%;padding: 7px;background-color: #fff;">
+                            <a href="#" style="font-size: 14px;">@doctor.fullName</a>
+                            <div style="font-size: 12px;">@doctor.speciality</div>
+                            <div>@doctor.address</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</main>
+

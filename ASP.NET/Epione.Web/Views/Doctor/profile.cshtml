@@ -1,0 +1,97 @@
+﻿
+@model Epione.Domain.DTO.DoctorDTO
+@{
+
+}
+
+
+<main>
+    @*<div id="breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li>Page active</li>
+                </ul>
+            </div>
+        </div>*@
+    <!-- /breadcrumb -->
+
+    <div class="container margin_60">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 offset-lg-2">
+                <nav id="secondary_nav">
+                    <div class="container">
+                        <ul class="clearfix">
+                            <li><a href="#section_1" class="active">General info</a></li>
+                            <li><a href="#section_2"></a></li>
+                            <li><a href="#sidebar"></a></li>
+
+                        </ul>
+                    </div>
+                </nav>
+                <div id="section_1">
+                    <div class="box_general_3">
+                        <div class="profile">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-4">
+                                    <figure>
+                                        <img src="/Content/Files/@Model.photo" alt="" class="img-fluid">
+                                    </figure>
+                                </div>
+                                <div class="col-lg-7 col-md-8">
+                                    <small>@Model.specialty.name</small>
+                                     <h1>Dr. @Model.firstName @Model.lastName</h1>
+                                     <ul class="contacts">
+                                        <li>
+                                            <h6>Address</h6>
+                                            <a href="#">@Model.address</a> 
+                                        </li>
+                                         <li>
+                                             <h6>Phone</h6> <a href="#">@Model.phoneNumber</a>
+                                         </li>
+                                         <li>
+                                             <h6>City</h6> <a href="#">@Model.civility</a>
+                                         </li>
+                                         <li>
+                                             <h6>E-mail</h6> <a href="#">@Model.email</a>
+                                         </li>
+                                         <li>
+                                             <h6>Sexe</h6> <a href="#">@Model.sexe</a>
+                                         </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- /profile -->
+                       
+                        <div class="wrapper_indent">
+                            <h6>Specializations @if (Model.motives.Count()==0) {<span>(none)</span> }</h6>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="bullets">
+                                        @foreach (var motive in Model.motives)
+                                        {
+                                            <li>@motive.name</li>
+
+                                        }
+                                       
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <!-- /row-->
+
+                        </div>
+                    </div>
+                    <!--  /wrapper_indent -->
+                </div>
+                <!-- /section_1 -->
+            </div>
+        </div>
+    </div>
+</main>
+<!-- /box_general -->

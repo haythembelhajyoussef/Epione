@@ -1,0 +1,48 @@
+<div class="container margin_60_35">
+  <div class="row">
+    <div class="col-lg-12">
+      <div
+        (click)="onClickNave()"
+        id="custom-search-input"
+        style="width:155px;display:inline-block;margin-left:50px;margin-bottom:10px;"
+      >
+        <input
+          type="submit"
+          class="btn_search"
+          style="position:relative"
+          value="Create Motive"
+        />
+      </div>
+
+      <table id="specialtys" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>motive</th>
+            <th>specialty</th>
+            <th>delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let motive of motives">
+            <tr>
+              <td>
+                <a
+                  (click)="onClickNaveToUpdate(motive.id, motive.name)"
+                  style="cursor: pointer"
+                >
+                  {{ motive.name }}</a
+                >
+              </td>
+              <td>{{ motive.speciality.name }}</td>
+              <td>
+                <a (click)="onClickDelete(motive.id)" style="cursor: pointer;">
+                  delete
+                </a>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

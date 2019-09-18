@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B22DFCD3-0E55-4DA7-BC93-0C8BE82780E7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Epione.Web</RootNamespace>
+    <AssemblyName>Epione.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44331</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Highcharts.Web.Mvc, Version=6.2.0.0, Culture=neutral, PublicKeyToken=90b74bd27a557bd3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Highsoft.Highcharts.6.2.0.36\lib\net40\Highcharts.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.3.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.5.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.5.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.5.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.5.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.5.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\DoctolibController.cs" />
+    <Compile Include="Controllers\DoctorDetailsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientAppointmentController.cs" />
+    <Compile Include="Controllers\SearchDoctorController.cs" />
+    <Compile Include="Extensions\HttpContextExtension.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Models\addDoctor.cs" />
+    <Compile Include="Models\ChatViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RegisterDoctorViewModel.cs" />
+    <Compile Include="Models\RegisterPatientViewModel.cs" />
+    <Compile Include="Models\SearchForDoctorViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chat\ChatStyle.css" />
+    <Content Include="Content\Chat\emojionearea.css" />
+    <Content Include="Content\Chat\font-awesome.min-4.4.0.css" />
+    <Content Include="Content\Chat\font-Source-Sans-Pro.css" />
+    <Content Include="Content\Chat\fontawesome.min-5.5.0.all.css" />
+    <Content Include="Content\Chat\plyr.css" />
+    <Content Include="Content\Files\audio_preview.jpg" />
+    <Content Include="Content\Files\audio_preview2.png" />
+    <Content Include="Content\Files\messenger.mp3" />
+    <Content Include="Content\Files\messenger_tel.mp3" />
+    <Content Include="Content\Files\no_preview.jpg" />
+    <Content Include="Content\Files\avatar.png" />
+    <Content Include="Content\Files\no_preview.png" />
+    <Content Include="Content\Files\record-beep.mp3" />
+    <Content Include="Content\Files\video_preview.png" />
+    <Content Include="Content\Front\badges.html" />
+    <Content Include="Content\Front\blog-1.html" />
+    <Content Include="Content\Front\blog-post.html" />
+    <Content Include="Content\Front\booking-page.html" />
+    <Content Include="Content\Front\confirm.html" />
+    <Content Include="Content\Front\contacts.html" />
+    <Content Include="Content\Front\css\ajax-loader.gif" />
+    <Content Include="Content\Front\css\blog.css" />
+    <Content Include="Content\Front\css\bootstrap.css" />
+    <Content Include="Content\Front\css\bootstrap.min.css" />
+    <Content Include="Content\Front\css\custom.css" />
+    <Content Include="Content\Front\css\datedropper.css" />
+    <Content Include="Content\Front\css\datedropper.min.css" />
+    <Content Include="Content\Front\css\date_picker.css" />
+    <Content Include="Content\Front\css\Doctolib.css" />
+    <Content Include="Content\Front\css\jquery.dataTables.min.css" />
+    <Content Include="Content\Front\css\menu.css" />
+    <Content Include="Content\Front\css\owl.video.play.png" />
+    <Content Include="Content\Front\css\style.css" />
+    <Content Include="Content\Front\css\tables.css" />
+    <Content Include="Content\Front\css\timedropper.css" />
+    <Content Include="Content\Front\css\timedropper.min.css" />
+    <Content Include="Content\Front\css\vendors.css" />
+    <Content Include="Content\Front\css\vendors.uncompressed.css" />
+    <Content Include="Content\Front\detail-page-2.html" />
+    <Content Include="Content\Front\detail-page-3.html" />
+    <Content Include="Content\Front\detail-page-working-booking.html" />
+    <Content Include="Content\Front\detail-page.html" />
+    <Content Include="Content\Front\faq.html" />
+    <Content Include="Content\Front\grid-list.html" />
+    <Content Include="Content\Front\icon-pack-1.html" />
+    <Content Include="Content\Front\icon-pack-2.html" />
+    <Content Include="Content\Front\icon-pack-3.html" />
+    <Content Include="Content\Front\icon_fonts\css\all_icons.css" />
+    <Content Include="Content\Front\icon_fonts\css\all_icons_min.css" />
+    <Content Include="Content\Front\icon_fonts\css\fontello-codes.css" />
+    <Content Include="Content\Front\icon_fonts\css\icon_set_1.css" />
+    <Content Include="Content\Front\icon_fonts\css\icon_set_2.css" />
+    <Content Include="Content\Front\icon_fonts\css\icon_set_3.css" />
+    <Content Include="Content\Front\icon_fonts\font\ElegantIcons.svg" />
+    <Content Include="Content\Front\icon_fonts\font\fontello.svg" />
+    <Content Include="Content\Front\icon_fonts\font\icon_set_1.svg" />
+    <Content Include="Content\Front\icon_fonts\font\Pe-icon-7-stroke.svg" />
+    <Content Include="Content\Front\img\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="Content\Front\img\apple-touch-icon-144x144-precomposed.png" />
+    <Content Include="Content\Front\img\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="Content\Front\img\apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="Content\Front\img\apple_app.png" />
+    <Content Include="Content\Front\img\apple_app_2x.png" />
+    <Content Include="Content\Front\img\app_img.svg" />
+    <Content Include="Content\Front\img\arrow-gray-1.svg" />
+    <Content Include="Content\Front\img\arrow_down.svg" />
+    <Content Include="Content\Front\img\arrow_down_menu.svg" />
+    <Content Include="Content\Front\img\arrow_left.png" />
+    <Content Include="Content\Front\img\arrow_right.png" />
+    <Content Include="Content\Front\img\badges\badge_1.svg" />
+    <Content Include="Content\Front\img\badges\badge_2.svg" />
+    <Content Include="Content\Front\img\badges\badge_3.svg" />
+    <Content Include="Content\Front\img\badges\badge_4.svg" />
+    <Content Include="Content\Front\img\badges\badge_5.svg" />
+    <Content Include="Content\Front\img\badges\badge_6.svg" />
+    <Content Include="Content\Front\img\bg_2.png" />
+    <Content Include="Content\Front\img\bg_menu.png" />
+    <Content Include="Content\Front\img\checkbox.png" />
+    <Content Include="Content\Front\img\checkbox.svg" />
+    <Content Include="Content\Front\img\close_infobox.png" />
+    <Content Include="Content\Front\img\doctor_listing_1.jpg" />
+    <Content Include="Content\Front\img\favicon.ico" />
+    <Content Include="Content\Front\img\google_play_app.png" />
+    <Content Include="Content\Front\img\google_play_app_2x.png" />
+    <Content Include="Content\Front\img\hero_bg_1.svg" />
+    <Content Include="Content\Front\img\hero_home_bg_1.svg" />
+    <Content Include="Content\Front\img\icon-home-1.svg" />
+    <Content Include="Content\Front\img\icon-home-2.svg" />
+    <Content Include="Content\Front\img\icon-home-3.svg" />
+    <Content Include="Content\Front\img\icon_cat_1.svg" />
+    <Content Include="Content\Front\img\icon_cat_2.svg" />
+    <Content Include="Content\Front\img\icon_cat_3.svg" />
+    <Content Include="Content\Front\img\icon_cat_4.svg" />
+    <Content Include="Content\Front\img\icon_cat_5.svg" />
+    <Content Include="Content\Front\img\icon_cat_6.svg" />
+    <Content Include="Content\Front\img\icon_cat_7.svg" />
+    <Content Include="Content\Front\img\icon_cat_8.svg" />
+    <Content Include="Content\Front\img\icon_ccv.gif" />
+    <Content Include="Content\Front\img\icon_doctolib.png" />
+    <Content Include="Content\Front\img\logo.png" />
+    <Content Include="Content\Front\img\logo1.png" />
+    <Content Include="Content\Front\img\logo_2x.png" />
+    <Content Include="Content\Front\img\logo_2x1.png" />
+    <Content Include="Content\Front\img\logo_no_name.svg" />
+    <Content Include="Content\Front\img\map-marker-contacts.png" />
+    <Content Include="Content\Front\img\map-marker.png" />
+    <Content Include="Content\Front\img\payments.png" />
+    <Content Include="Content\Front\img\payments_2x.png" />
+    <Content Include="Content\Front\img\paypal_bt.png" />
+    <Content Include="Content\Front\img\pins\Doctors.png" />
+    <Content Include="Content\Front\img\search.svg" />
+    <Content Include="Content\Front\img\select-icons.png" />
+    <Content Include="Content\Front\img\shadow_pic.png" />
+    <Content Include="Content\Front\img\small-arrow.svg" />
+    <Content Include="Content\Front\img\subheader_bg_1.png" />
+    <Content Include="Content\Front\img\video_fix.png" />
+    <Content Include="Content\Front\js\bootstrap-datepicker.js" />
+    <Content Include="Content\Front\js\bootstrap.js" />
+    <Content Include="Content\Front\js\bootstrap.min.js" />
+    <Content Include="Content\Front\js\common_scripts.js" />
+    <Content Include="Content\Front\js\common_scripts.min.js" />
+    <Content Include="Content\Front\js\datedropper.js" />
+    <Content Include="Content\Front\js\datedropper.min.js" />
+    <Content Include="Content\Front\js\Doctolib.js" />
+    <Content Include="Content\Front\js\exporting.js" />
+    <Content Include="Content\Front\js\fr-all-all-mainland.js" />
+    <Content Include="Content\Front\js\functions.js" />
+    <Content Include="Content\Front\js\highcharts.js" />
+    <Content Include="Content\Front\js\highmaps.js" />
+    <Content Include="Content\Front\js\infobox.js" />
+    <Content Include="Content\Front\js\jquery-2.2.4.min.js" />
+    <Content Include="Content\Front\js\jquery.cookiebar.js" />
+    <Content Include="Content\Front\js\jquery.dataTables.min.js" />
+    <Content Include="Content\Front\js\jquery.easypiechart.js" />
+    <Content Include="Content\Front\js\jquery.selectbox-0.2.js" />
+    <Content Include="Content\Front\js\mapmarker.jquery.js" />
+    <Content Include="Content\Front\js\mapmarker_contacts_func.js" />
+    <Content Include="Content\Front\js\mapmarker_func.jquery.js" />
+    <Content Include="Content\Front\js\map_listing.js" />
+    <Content Include="Content\Front\js\modernizr.js" />
+    <Content Include="Content\Front\js\modernizr_tables.js" />
+    <Content Include="Content\Front\js\owl.carousel.js" />
+    <Content Include="Content\Front\js\owl.carousel.min.js" />
+    <Content Include="Content\Front\js\popper.min.js" />
+    <Content Include="Content\Front\js\pw_strenght.js" />
+    <Content Include="Content\Front\js\ResizeSensor.js" />
+    <Content Include="Content\Front\js\ResizeSensor.min.js" />
+    <Content Include="Content\Front\js\retina-replace.js" />
+    <Content Include="Content\Front\js\retina-replace.min.js" />
+    <Content Include="Content\Front\js\sticky-kit.js" />
+    <Content Include="Content\Front\js\sticky-kit.min.js" />
+    <Content Include="Content\Front\js\tables_func.js" />
+    <Content Include="Content\Front\js\tables_func_2.js" />
+    <Content Include="Content\Front\js\theia-sticky-sidebar.js" />
+    <Content Include="Content\Front\js\theia-sticky-sidebar.min.js" />
+    <Content Include="Content\Front\js\timedropper.js" />
+    <Content Include="Content\Front\js\timedropper.min.js" />
+    <Content Include="Content\Front\js\video_header.js" />
+    <Content Include="Content\Front\js\wow.js" />
+    <Content Include="Content\Front\js\wow.min.js" />
+    <Content Include="Content\Front\list-map.html" />
+    <Content Include="Content\Front\list.html" />
+    <Content Include="Content\Front\login-2.html" />
+    <Content Include="Content\Front\login.html" />
+    <Content Include="Content\Front\pricing-tables-2.html" />
+    <Content Include="Content\Front\pricing-tables.html" />
+    <Content Include="Content\Front\register-doctor-working.html" />
+    <Content Include="Content\Front\register-doctor.html" />
+    <Content Include="Content\Front\register.html" />
+    <Content Include="Content\Front\video\intro.mp4" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Front\icon_fonts\font\ElegantIcons.eot" />
+    <Content Include="Content\Front\icon_fonts\font\ElegantIcons.ttf" />
+    <Content Include="Content\Front\icon_fonts\font\ElegantIcons.woff" />
+    <Content Include="Content\Front\icon_fonts\font\fontello.eot" />
+    <Content Include="Content\Front\icon_fonts\font\fontello.ttf" />
+    <Content Include="Content\Front\icon_fonts\font\fontello.woff" />
+    <Content Include="Content\Front\icon_fonts\font\icon_set_1.eot" />
+    <Content Include="Content\Front\icon_fonts\font\icon_set_1.ttf" />
+    <Content Include="Content\Front\icon_fonts\font\icon_set_1.woff" />
+    <Content Include="Content\Front\icon_fonts\font\Pe-icon-7-stroke.eot" />
+    <Content Include="Content\Front\icon_fonts\font\Pe-icon-7-stroke.ttf" />
+    <Content Include="Content\Front\icon_fonts\font\Pe-icon-7-stroke.woff" />
+    <Content Include="Content\Front\video\intro.ogv" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Chat\ChatScript.js" />
+    <Content Include="Scripts\Chat\emojionearea.js" />
+    <Content Include="Scripts\Chat\plyr.polyfilled.js" />
+    <Content Include="Scripts\Chat\popper.min.js" />
+    <Content Include="Scripts\Chat\Recorder.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Chat\ChatBox.cshtml" />
+    <Content Include="Views\Home\RegisterDoctor.cshtml" />
+    <Content Include="Views\Shared\_NavigationBar.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutTesting.cshtml" />
+    <Content Include="Views\SearchDoctor\ListSearchForDoctor.cshtml" />
+    <Content Include="Views\PatientAppointment\ListAppointments.cshtml" />
+    <Content Include="Views\PatientAppointment\ListAppointmentsTreated.cshtml" />
+    <Content Include="Views\DoctorDetails\ListDoctorDetails.cshtml" />
+    <Content Include="Views\Doctolib\addDoctorDoctolib.cshtml" />
+    <Content Include="Views\Doctolib\DetailsDoctor.cshtml" />
+    <Content Include="Views\Doctolib\FirstLettre.cshtml" />
+    <Content Include="Views\Doctolib\Index.cshtml" />
+    <Content Include="Views\Analytics\Dashboard.cshtml" />
+    <Content Include="Views\Analytics\Index.cshtml" />
+    <Content Include="Views\Analytics\Vacation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Epione.Data\Epione.Data.csproj">
+      <Project>{1608df3f-df55-4d39-83f9-34662c5f2d71}</Project>
+      <Name>Epione.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epione.Domain\Epione.Domain.csproj">
+      <Project>{de338493-8c78-4911-8d6e-d023c0667853}</Project>
+      <Name>Epione.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epione.Service\Epione.Service.csproj">
+      <Project>{7059b75a-0895-4798-a8fc-e83fd0a2c6ae}</Project>
+      <Name>Epione.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicePattern\ServicePattern.csproj">
+      <Project>{7148b8b6-c991-4b17-b2b4-41a9ae3baef8}</Project>
+      <Name>ServicePattern</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>41120</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:41120/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

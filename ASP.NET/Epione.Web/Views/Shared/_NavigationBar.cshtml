@@ -1,0 +1,106 @@
+﻿@using Epione.Domain;
+@{
+    var currentUser = (user)System.Web.HttpContext.Current.Session["IUser"];
+}
+<header class="header_sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div id="logo_home">
+                    <h1><a href="@Url.Action("Index","Home")" title="Findoctor">Findoctor</a></h1>
+                </div>
+            </div>
+            <nav class="col-lg-9 col-6">
+                <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
+                <ul id="top_access">
+                    @if (currentUser != null)
+                    {
+                        @*<li id="user">
+                            <a href="#0">
+                                <figure><img src="~/Content/Files/@currentUser.photo" alt="" width="150" height="150"></figure>
+                                @currentUser.firstName @currentUser.lastName
+                            </a>
+                        </li>*@
+
+                        
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Login", "Home")"><i class="pe-7s-user"></i></a></li>
+            <li><a href="@Url.Action("RegisterDoctor", "Home")"><i class="pe-7s-add-user"></i></a></li>
+
+                    }
+
+                </ul>
+                <div class="main-menu">
+                    <ul>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Pages<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                <li><a href="~/Content/Front/list.html">List page</a></li>
+                                <li><a href="~/Content/Front/grid-list.html">List grid page</a></li>
+                                <li><a href="~/Content/Front/list-map.html">List map page</a></li>
+                                <li><a href="~/Content/Front/detail-page.html">Detail page</a></li>
+                                <li><a href="~/Content/Front/detail-page-2.html">Detail page 2</a></li>
+                                <li><a href="~/Content/Front/detail-page-3.html">Detail page 3</a></li>
+                                <li><a href="~/Content/Front/blog-1.html">Blog</a></li>
+                                <li><a href="~/Content/Front/badges.html">Badges</a></li>
+                                <li><a href="~/Content/Front/login.html">Login</a></li>
+                                <li><a href="~/Content/Front/login-2.html">Login 2</a></li>
+                                <li><a href="~/Content/Front/register-doctor.html">Register Doctor</a></li>
+                                <li><a href="~/Content/Front/register.html">Register</a></li>
+                                <li><a href="~/Content/Front/contacts.html">Contacts</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Extra Elements<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                <li><a href="~/Content/Front/detail-page-working-booking.html">Detail working booking</a></li>
+                                <li><a href="~/Content/Front/booking-page.html">Booking page</a></li>
+                                <li><a href="~/Content/Front/confirm.html">Confirm page</a></li>
+                                <li><a href="~/Content/Front/faq.html">Faq page</a></li>
+                                <li><a href="~/Content/Front/coming_soon/index.html">Coming soon</a></li>
+                                <li><a href="~/Content/Front/pricing-tables.html">Responsive pricing tables</a></li>
+                                <li><a href="~/Content/Front/pricing-tables-2.html">Responsive pricing tables 2</a></li>
+                                <li><a href="~/Content/Front/register-doctor-working.html">Working doctor register</a></li>
+                                <li><a href="~/Content/Front/icon-pack-1.html">Icon pack 1</a></li>
+                                <li><a href="~/Content/Front/icon-pack-2.html">Icon pack 2</a></li>
+                                <li><a href="~/Content/Front/icon-pack-3.html">Icon pack 3</a></li>
+                                <li><a href="~/Content/Front/404.html">404 page</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                        <a href="@Url.Action("ChatBox", "Chat")" class="show-submenu"> Messages
+                            <i class="icon-chat"></i>
+                        </a>
+                        </li>
+                        @if (currentUser != null)
+                        {
+                            <li class="submenu">
+                                <a href="#0" class="show-submenu">
+                                    <img src="/Content/Files/@currentUser.photo" alt="" width="30" height="30" style="
+                                height: 30px;
+                                width: 30px;
+                                position: absolute;
+                                border-radius: 50%;
+                                right: 0;
+                                margin: -5px -1px 0 0px;
+                            ">
+                                    @currentUser.firstName @currentUser.lastName <i class="icon-down-open-mini"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="@Url.Action("Index", "Home")">Edit profile</a></li>
+                                    <li><a href="@Url.Action("Index", "Home")">Change credentils</a></li>
+                                    <li><a href="@Url.Action("LogOff", "Home")">Log off</a></li>
+                                    
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!-- /main-menu -->
+            </nav>
+        </div>
+    </div>
+    <!-- /container -->
+</header>

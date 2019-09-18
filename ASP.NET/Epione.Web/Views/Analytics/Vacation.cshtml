@@ -1,0 +1,225 @@
+﻿<script src="~/Content/Front/js/highcharts.js"></script>
+<script src="~/Content/Front/js/exporting.js"></script>
+<script src="~/Content/Front/js/offline-exporting.js"></script>
+
+@{
+    ViewBag.Title = "Vacation";
+}
+
+@using System.Collections
+@using Highsoft.Web.Mvc.Charts
+@{
+    ViewBag.Title = "Index";
+}
+
+<main>
+    <div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li>Page active</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- /breadcrumb -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="form-control " id="option" name="option">
+
+                                <option @(ViewBag.option == "day" ? "selected" : string.Empty)
+                                        value="day">
+                                    Day
+                                </option>
+                                <option @(ViewBag.option == "week" ? "selected" : string.Empty)
+                                        value="week">
+                                    Week
+                                </option>
+                                <option @(ViewBag.option == "month" ? "selected" : string.Empty)
+                                        value="month">
+                                    Month
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <input value="@ViewBag.dateChosen" class="form-control bootstrap-datetimepicker-widget" type="date" id="dateChosen" name="dateChosen">
+                        </div>
+                        <div class="col-md-12">
+                            <!-- START USERS ACTIVITY BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-body padding-0">
+                                    @(Html.Highsoft().GetHighcharts(
+        new Highcharts
+        {
+            Title = new Title
+            {
+                Text = "Percentage vacation"
+            },
+            XAxis = new List<XAxis>
+            {
+                new XAxis
+                {
+                    Categories = @ViewData["Categories"] as List<String>
+                }
+            },
+            YAxis = new List<YAxis>
+            {
+                new YAxis
+                {
+                    Min = 0,
+                    Title = new YAxisTitle
+                    {
+                        Text = "Total fruit consumption"
+                    },
+                    StackLabels = new YAxisStackLabels
+                    {
+                        Enabled = true,
+                        Style = new YAxisStackLabelsStyle() { FontWeight = "bold" }
+                    }
+                }
+            },
+            Tooltip = new Tooltip
+            {
+                PointFormat = "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>",
+                Shared = true
+            },
+            PlotOptions = new PlotOptions
+            {
+                Column = new PlotOptionsColumn
+                {
+                    Stacking = PlotOptionsColumnStacking.Percent
+                }
+            },
+            Series = new List<Series>
+            {
+                new ColumnSeries
+                {
+                    Name = "Not used slots",
+                    Data = @ViewData["joeData"] as List<ColumnSeriesData>,
+                    Color=@String.Format("#{0:X6}", new Random((int)DateTime.Now.Ticks).Next(0x1000000))
+                },
+
+                new ColumnSeries
+                {
+                    Name = "Used slots",
+                    Data = @ViewData["johnData"] as List<ColumnSeriesData>,
+                    Color=@String.Format("#{0:X6}", new Random((int)DateTime.Now.Ticks).Next(0x1010010))
+                }
+    }
+        }
+        , "chart")
+                                    )
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- START USERS ACTIVITY BLOCK -->
+                            <div class="panel panel-default">
+                                <div class="panel-body padding-0">
+                           @(Html.Highsoft().GetHighcharts(
+        new Highcharts
+        {
+            Chart = new Highsoft.Web.Mvc.Charts.Chart
+            {
+                ZoomType = ChartZoomType.X
+            },
+            Title = new Title
+            {
+                Text = "Vacation evolution"
+            },
+            Subtitle = new Subtitle
+            {
+                Text = "Click and drag in the plot area to zoom in"
+            },
+            XAxis = new List<XAxis>
+            {
+                new XAxis
+                {
+                    Categories = @ViewData["Categories"] as List<String>
+                }
+            },
+            YAxis = new List<YAxis>
+            {
+                new YAxis
+                {
+                    Title = new YAxisTitle
+                    {
+                        Text = "Number slots"
+                    }
+                }
+            },
+            Legend = new Legend
+            {
+                Enabled = false
+            },
+            PlotOptions = new PlotOptions
+            {
+                Series = new PlotOptionsSeries
+                {
+                    TurboThreshold = 10000
+                },
+                Area = new PlotOptionsArea
+                {
+                    ///FillColor = // TODO - LinerGradients
+                    ///
+                    Marker = new PlotOptionsAreaMarker
+                    {
+                        Radius = 2
+                    },
+                    LineWidth = 1,
+                    States = new PlotOptionsAreaStates
+                    {
+                        Hover = new PlotOptionsAreaStatesHover
+                        {
+                            LineWidth = 1
+                        }
+                    },
+                    Threshold = null
+                }
+            },
+            Series = new List<Series>
+            {
+                new AreaSeries
+                {
+                    Name = "Used slots ",
+                   
+                    Data = @ViewBag.TimeData as List<AreaSeriesData>
+                }
+            }
+        }
+        , "chart1")
+                        )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+    </div>
+</div>
+    <script>
+        function randomColor() {
+        var randomColor = '#' + ('000000' + Math.floor(Math.random() * 16777215).toString(16)).slice(-6);
+                                }
+        $('#dateChosen').change(function () {
+            var option = $("#option").val();
+            var date = $("#dateChosen").val();
+            var from = date.split("/");
+            var f = new Date(from[2], from[1], from[0]);
+            var date_string = f.getFullYear() + "-" + f.getMonth() + "-" + f.getDate();
+           
+            window.location.href = "/Analytics/Vacation/" + option + "/" + date;
+        });
+        
+    </script>
+
+    <!-- /row -->
+    <!-- /container -->
+</main>
+<!-- /main -->

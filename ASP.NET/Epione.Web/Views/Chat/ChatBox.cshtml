@@ -1,0 +1,811 @@
+﻿@model Epione.Web.Models.ChatViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var fileKey = "#+-*/64168!__)(*&?%#";
+
+    List<String> documents = new List<string>() { ".doc", ".docx", ".odt", ".ods", ".ppt", ".pptx", ".pdf", ".xls", ".xlsx", ".txt" };
+    List<String> audios = new List<string>() { ".aac", ".mp3", ".wav", ".wma", ".ogg", ".midi", ".aif", ".aifc", ".aiff" };// all chechekd
+    List<String> videos = new List<string>() { ".mp4", ".webm" };
+    List<String> images = new List<string>() { ".tif, .tiff", ".gif", ".jpeg", ".jpg", ".png", ".jif", ".jfif", ".jp2", ".jpx", ".j2k", ".j2c", ".fpx", ".pcd" };// all chechekd
+
+    string verifExtension(String extension)
+    {
+        extension = extension.ToLower();
+        if (documents.Contains(extension))
+            return "/Content/Files/no_preview.png";
+        else if (audios.Contains(extension))
+            return "/Content/Files/audio_preview.jpg";
+        else if (videos.Contains(extension))
+            return "/Content/Files/video_preview.png";
+        else if (images.Contains(extension))
+            return "image";
+        else
+            return "";
+    }
+
+    String getPreviewMsgFile(String fileNameDB)
+    {
+        var pathFilePreview = verifExtension(fileNameDB.Substring(fileNameDB.LastIndexOf(".")));
+        if (pathFilePreview.Contains("no_prev"))
+        {// it's a document
+            return "<a href=\"" + fileNameDB + " target=\"_blank\" class=\"tooltip-test\" " +
+                "title=\"Click to view in new tab\"><img src=\"" + pathFilePreview + "\"></a>";
+        }
+        else if (pathFilePreview.Contains("audio"))
+        {
+            return "<audio class=\"player\" controls>" +
+                 " <source src=\"" + fileNameDB + "\" type=\"audio/mp3\"></audio>";
+        }
+        else if (pathFilePreview.Contains("video"))
+        {
+            return " <video controls crossorigin playsinline poster=\"" + pathFilePreview + "\" class=\"player\">" +
+                "<source src=\"" + fileNameDB + "\" type=\"video/" + fileNameDB.Substring(fileNameDB.LastIndexOf(".")).Substring(1) + "\" size=\"576\">" +
+                 " <a href=\"" + fileNameDB + "\" download>Download</a></video>";
+        }
+        else
+        {// it's an image
+            return ("<a href=\"" + fileNameDB + "\" target=\"_blank\"><img src=\"" + fileNameDB + "\"></a>").ToString();
+        }
+    }
+
+    String getPreviewMessage(string previewMsgFile)
+    {
+        previewMsgFile = previewMsgFile.Substring(fileKey.Length, previewMsgFile.LastIndexOf(fileKey) - fileKey.Length);
+        var pathFilePreview = verifExtension(previewMsgFile.Substring(previewMsgFile.LastIndexOf(".")));
+        if (pathFilePreview.Contains("no_prev"))
+        {// it's a document
+            return "sent a file ";
+        }
+        else if (pathFilePreview.Contains("audio"))
+        {
+            return "sent an audio file 🎵🎵";
+        }
+        else if (pathFilePreview.Contains("video"))
+        {
+            return "sent a video 🎬🎬";
+        }
+        else
+        {// it's an image
+            return "sent  a photo 🖼️🖼️";
+        }
+    }
+}
+<mainChat>
+    <div id="frame">
+        <div id="sidepanel">
+            <div id="profile">
+                <div class="wrap">
+                    <img id="profile-img" src="~/Content/Files/@Model.currentUser.photo" class="online" alt="">
+                    <p class="myname">@Model.currentUser.firstName @Model.currentUser.lastName</p>
+                    <!--   <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>-->
+                    <div id="status-options" class="">
+                        <ul>
+                            <li id="status-online" class="active">
+                                <span class="status-circle"></span>
+                                <p>Online</p>
+                            </li>
+                            <li id="status-away">
+                                <span class="status-circle"></span>
+                                <p>Away</p>
+                            </li>
+                            <li id="status-busy">
+                                <span class="status-circle"></span>
+                                <p>Busy</p>
+                            </li>
+                            <!-- <li id="status-offline"><span class="status-circle"></span>
+                                <p>Offline</p>
+                            </li> -->
+                        </ul>
+                    </div>
+                    <!--<div id="expanded">
+                        <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="mikeross"/>
+                        <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="ross81"/>
+                        <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="mike.ross"/>
+                    </div>-->
+                </div>
+            </div>
+
+
+
+            <div id="search">
+                <div id="filter">
+                    <ul>
+                        <li id="all">
+                            <p>All</p>
+                            <span class="checked"><i class="fa fa-check"></i></span>
+                        </li>
+                        <li id="day">
+                            <p>Last day</p>
+                            <span class="checked" style="display: none"><i class="fa fa-check"></i></span>
+                        </li>
+                        <li id="week">
+                            <p>Last week</p>
+                            <span class="checked" style="display: none"><i class="fa fa-check"></i></span>
+                        </li>
+                        <li id="month">
+                            <p>Last month</p>
+                            <span class="checked" style="display: none"><i class="fa fa-check"></i></span>
+                        </li>
+                        <li id="year">
+                            <p>Last year</p>
+                            <span class="checked" style="display: none"><i class="fa fa-check"></i></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <button id="filterbtn" title="Filter conversations" disabled><i class="fa fa-filter"></i></button>
+                <input id="searchInput" type="text" placeholder="Filter...">
+
+            </div>
+            <div id="contacts">
+                <ul>
+                    @if (Model.currentUser.role.Equals("doctor"))
+                    {
+                        foreach (Epione.Domain.discussion discussion in Model.discussions)
+                        {
+                            <li class="contact" id="@discussion.id" user="@discussion.patient.id"
+                                firstName="@discussion.patient.firstName"
+                                lastName="@discussion.patient.lastName"
+                                photo="/Content/Files/@discussion.patient.photo">
+                                <div class="wrap">
+                                    <span class="contact-status online"></span>
+                                    <img id="profile-img" src="~/Content/Files/@discussion.patient.photo" class="online" alt="">
+
+                                    <div class="meta">
+                                        <p class="name">@discussion.patient.firstName @discussion.patient.lastName</p>
+                                        @if (discussion.messages.Last().content.Contains(fileKey))
+                                        {
+                                            <p class="preview">
+                                                @if (Model.currentUser.id == discussion.patient.id)
+                                                {
+                                                    <span>You: </span>
+                                                }
+                                                @getPreviewMessage(discussion.messages.Last().content)
+                                            </p> }
+                                        else
+                                        {
+                                            <p class="preview">
+                                                @if (Model.currentUser.id == discussion.patient.id)
+                                                {
+                                                    <span>You: </span>
+                                                }
+                                                @discussion.messages.Last().content
+                                            </p>
+                                        }
+                                    </div>
+                                    @if (@discussion.messages.Where(m => m.seenTime == null).Count() > 0)
+                                    {
+                                        <span class="new-message">+@discussion.messages.Where(m => m.seenTime == null).Count()</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="new-message" style="display: none"></span>
+                                    }
+
+                                </div>
+                            </li>
+                        }
+
+                    }
+                    else
+                    {
+                        foreach (Epione.Domain.discussion discussion in Model.discussions)
+                        {
+
+                            <li class="contact" id="@discussion.id" user="@discussion.doctor.id"
+                                firstName="@discussion.doctor.firstName"
+                                lastName="@discussion.doctor.lastName"
+                                photo="/Content/Files/@discussion.doctor.photo">
+                                <div class="wrap">
+                                    <span class="contact-status online"></span>
+                                    <img id="profile-img" src="~/Content/Files/@discussion.doctor.photo" class="online" alt="">
+
+                                    <div class="meta">
+                                        <p class="name">@discussion.doctor.firstName @discussion.doctor.lastName</p>
+                                        @if (discussion.messages.Last().content.Contains(fileKey))
+                                        {
+                                            <p class="preview">
+                                                @if (Model.currentUser.id == discussion.patient.id)
+                                                {
+                                                    <span>You: </span>
+                                                }
+
+                                                @getPreviewMessage(discussion.messages.Last().content)
+                                            </p> }
+                                        else
+                                        {
+                                            <p class="preview">
+                                                @if (Model.currentUser.id == discussion.patient.id)
+                                                {
+                                                    <span>You: </span>
+                                                }
+                                                @discussion.messages.Last().content
+                                            </p>
+                                        }
+
+                                    </div>
+                                    @if (@discussion.messages.Where(m => m.seenTime == null).Count() > 0)
+                                    {
+                                        <span class="new-message">+@discussion.messages.Where(m => m.seenTime == null).Count()</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="new-message" style="display: none"></span>
+                                    }
+                                </div>
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+
+            @if (Model.currentUser.role.Equals("doctor"))
+            {
+                foreach (Epione.Domain.discussion discussion in Model.discussions)
+                {
+                    <div class="contact-profile" id="contact-profile-@discussion.id">
+                        <img id="profile-img" src="~/Content/Files/@discussion.patient.photo" class="online" alt="">
+
+                        <div class="chat-about">
+                            <div class="chat-with"><a href="">@discussion.patient.firstName @discussion.patient.lastName</a></div>
+                            <div class="chat-num-messages">already @discussion.messages.Count messages</div>
+                        </div>
+
+                        <div class="delete">
+                            <button id="delete" class='centerMe'>
+                                <div class='icon'>
+                                    <i class='icon-trash-1'></i>
+                                    <i class='icon-question'></i>
+                                    <i class='icon-check'></i>
+                                </div>
+                                <div class='text'>
+                                    <span>Delete conversation</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="messages" id="messages-@discussion.id">
+                        <ul>
+                            @foreach (Epione.Domain.message message in discussion.messages)
+                            {
+                                if (message.senderId.Equals(Model.currentUser.id))
+                                {
+                                    <li class="sent">
+                                        <span class="name"><strong>You : </strong> @Model.FormatDate(message.sentTime) </span>
+                                        <a href="" title="@Model.currentUser.firstName @Model.currentUser.lastName">
+                                            <img id="profile-img" src="~/Content/Files/@discussion.doctor.photo" class="online" alt="">
+                                        </a>
+                                        @if (message.content.Contains(fileKey))
+                                        {
+                                            <p>@message.content.Substring(message.content.LastIndexOf(fileKey) + 20) @(new HtmlString(getPreviewMsgFile(message.content.Substring(message.content.IndexOf(fileKey) + 20, message.content.LastIndexOf(fileKey) - 20)))) </p>
+                                        }
+                                        else
+                                        {
+                                            <p>@message.content</p>
+                                        }
+                                        @if (@message.seenTime != null)
+                                        {
+                                            <span class="seen"><i class="fa fa-eye"></i> @Model.FormatDate(message.seenTime)</span>
+                                        }
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="replies">
+                                        <span class="name"><strong>@discussion.patient.firstName : </strong> @Model.FormatDate(message.sentTime)</span>
+                                        <a href="" title="@discussion.patient.firstName @discussion.patient.lastName">
+                                            <img id="profile-img" src="~/Content/Files/@discussion.patient.photo" class="online" alt="">
+
+                                        </a>
+                                        @if (message.content.Contains(fileKey))
+                                        {
+                                            <p>@message.content.Substring(message.content.LastIndexOf(fileKey) + 20) @(new HtmlString(getPreviewMsgFile(message.content.Substring(message.content.IndexOf(fileKey) + 20, message.content.LastIndexOf(fileKey) - 20)))) </p>
+                                        }
+                                        else
+                                        {
+                                            <p>@message.content</p>
+                                        }
+                                        @if (@message.seenTime != null)
+                                        {
+                                            <span class="seen"><i class="fa fa-eye"></i> @Model.FormatDate(message.seenTime)</span>
+                                        }
+                                    </li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <!--Patient-->
+                foreach (Epione.Domain.discussion discussion in Model.discussions)
+                {
+
+                    <div class="contact-profile" id="contact-profile-@discussion.id">
+                        <img id="profile-img" src="~/Content/Files/@discussion.doctor.photo" class="online" alt="">
+
+                        <div class="chat-about">
+                            <div class="chat-with"><a href="">@discussion.doctor.firstName @discussion.doctor.lastName</a></div>
+                            <div class="chat-num-messages">already @discussion.messages.Count messages</div>
+                        </div>
+
+                        <div class="delete">
+                            <button id="delete" class='centerMe'>
+                                <div class='icon'>
+                                    <i class='icon-trash-1'></i>
+                                    <i class='icon-question'></i>
+                                    <i class='icon-check'></i>
+                                </div>
+                                <div class='text'>
+                                    <span>Delete conversation</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="messages" id="messages-@discussion.id">
+                        <ul>
+                            @foreach (Epione.Domain.message message in discussion.messages)
+                            {
+                                if (message.senderId.Equals(Model.currentUser.id))
+                                {
+
+                                    <li class="sent">
+                                        <span class="name"><strong>You : </strong> @Model.FormatDate(message.sentTime)</span>
+                                        <a href="" title="@Model.currentUser.firstName @Model.currentUser.lastName">
+                                            <img id="profile-img" src="~/Content/Files/@discussion.patient.photo" class="online" alt="">
+                                        </a>
+                                        @if (message.content.Contains(fileKey))
+                                        {
+                                            <p>@message.content.Substring(message.content.LastIndexOf(fileKey) + 20) @(new HtmlString(getPreviewMsgFile(message.content.Substring(message.content.IndexOf(fileKey) + 20, message.content.LastIndexOf(fileKey) - 20)))) </p>
+                                        }
+                                        else
+                                        {
+                                            <p>@message.content</p>
+                                        }
+
+                                        @if (@message.seenTime != null)
+                                        {
+                                            <span class="seen"><i class="fa fa-eye"></i> @Model.FormatDate(message.seenTime)</span>
+                                        }
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="replies">
+                                        <span class="name"><strong>@discussion.doctor.firstName : </strong> @Model.FormatDate(message.sentTime)</span>
+                                        <a href="" title="@discussion.doctor.firstName @discussion.doctor.lastName">
+                                            <img id="profile-img" src="~/Content/Files/@discussion.doctor.photo" class="online" alt="">
+                                        </a>
+                                        @if (message.content.Contains(fileKey))
+                                        {
+                                            <p>@message.content.Substring(message.content.LastIndexOf(fileKey) + 20) @(new HtmlString(getPreviewMsgFile(message.content.Substring(message.content.IndexOf(fileKey) + 20, message.content.LastIndexOf(fileKey) - 20)))) </p>
+                                        }
+                                        else
+                                        {
+                                            <p>@message.content</p>
+                                        }
+                                        @if (@message.seenTime != null)
+                                        {
+                                            <span class="seen"><i class="fa fa-eye"></i> @Model.FormatDate(message.seenTime)</span>
+                                        }
+                                    </li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                }
+
+            }
+
+            <div class="message-input">
+                <input type="text" id="inputMessage" class="form-control textarea-control" maxlength="4500"
+                       placeholder="Write your message..." />
+            </div>
+            <div class="buttons">
+                <input id='uploadFile' accept='.doc, .docx, .odt, .ods, .ppt, .pptx, .pdf, .xls, .xlsx, .txt, .aac, .mp3, .wav, .wma, .ogg, .midi, .aif, .aifc, .aiff, .mp4, .webm, .tif, .tiff, .gif, .jpeg, .jpg, .png, .jif, .jfif, .jp2, .jpx, .j2k, .j2c, .fpx, .pcd' type='file' style='display: none' />
+                <button title="Send voice message" id='record'><i class='fa fa-microphone'> </i></button>
+                <button title="Upload file" id='attachment'><i class='fa fa-file-upload'> </i></button>
+                <button title="Send message" id='sendButton'><i class='fa fa-paper-plane'></i></button>
+            </div>
+
+            <div id="previewImg" style="display: none">
+                <span class="close">&times;</span>
+                <img src="" alt="">
+                <!--<p>Press enter to send message with this attachement</p>-->
+            </div>
+        </div>
+
+        <!-- Frame Modal Bottom -->
+        <div class="modal fade bottom" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+            <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+            <div class="modal-dialog modal-frame modal-bottom" role="document">
+
+
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row d-flex justify-content-center align-items-center">
+
+                            <p class="pt-3 pr-2" id="modalMsg">Please hold the button more than 1 s after the beep to record a voice message</p>
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Frame Modal Bottom -->
+    </div>
+
+
+</mainChat>
+
+@section scripts
+{
+    <!--Reference the SignalR library. -->
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chat/ChatScript.js"></script>
+
+
+
+    <!--SignalR script to update the chat page and send messages.-->
+    <script>
+
+        $(document).ready(function () {
+            Plyr.setup('.player');
+            $("#inputMessage").emojioneArea({
+                saveEmojisAs: 'unicode',
+                shortnames: false,
+                pickerPosition: "top",
+                filtersPosition: "bottom",
+                tones: true,
+                autocomplete: true,
+                recentEmojis: true,
+                inline: true,
+                hidePickerOnBlur: true,
+                searchPlaceholder: "Search",
+                textcomplete: {
+                    maxCount: 10,
+                    placement: 'top'
+                },
+                attributes: {
+                    spellcheck: true,
+                    autocomplete: "on",
+                }
+            });
+        });
+
+        $(function () {
+            $.connection.hub;
+            $.connection.hub.qs = 'userId=@Model.currentUser.id';
+            var chat = $.connection.chatHub;
+
+
+
+            $.connection.hub.start().done(function () {
+                // User pressed Enter
+                $(".message-input").on("keyup", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (e.keyCode === 13) {
+                        sendMessage();
+                    }
+                });
+
+                $(".emojionearea-editor").focusin(function (e) {
+                    e.preventDefault;
+                    e.stopPropagation();
+
+                    if (getNbrMsgNotSeen(idConversation) > 0)
+                        //&& $("#messages-" + idConversation + " li").last().attr("class") === "replies")
+                    {
+                        console.log(getNbrMsgNotSeen(idConversation));
+                        chat.server.setSeen(idConversation, $("#".concat(idConversation)).attr('user'));
+                    }
+                });
+
+                $("#sendButton").click(function () {
+                    $(".emojionearea-editor").focus();
+                    sendMessage();
+                });
+
+                $("#attachment").on('keypress', function (event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        sendMessage();
+                        $(".emojionearea-editor").focus();
+                    }
+                });
+
+                function stopRecording() {
+                    console.log("stopButton clicked");
+                    rec.stop();
+                    $(".emojionearea-editor").focus();
+                    //stop microphone access
+                    gumStream.getAudioTracks()[0].stop();
+                    //create the wav blob and pass it on to createDownloadLink
+                    rec.exportWAV( function (blob) {
+
+                        fileRecord = blob;
+                        // Clear the Recorder to start again !
+                        rec.clear();
+
+                        sendMessage();
+                    });
+                }
+
+                $('#record').on('mousedown touchstart', function (e) {
+                    $(this).addClass('active');
+                    timeOut = setInterval(function () {
+
+                        if (recordS == 0.1) {
+                            var beep = new Audio("/Content/Files/record-beep.mp3");
+                            beep.play();
+                        }
+
+                        if (recordS == 0.7)
+                            startRecording();
+
+                        recordS+=0.1;
+                        //console.log(recordS + " s");
+                    }, 100);
+
+                }).bind('mouseup touchend', function () {
+                    $(this).removeClass('active');
+                    clearInterval(timeOut);
+
+                    if (recordS >= 1.9)// 1.8s
+                        stopRecording();
+                    else {
+                        $('#modal').modal("toggle");
+                        //alert("please hold the button more than 1 s after the beep to record a voice message");
+                        if (rec != null) {
+                            rec.stop();
+                            rec.clear();
+                            console.log("record cleared (cause : interval < 1s )");
+                        }
+                    }
+                    recordS = 0;
+                });
+
+                $("#delete").click(function () {
+                    if ($(this).hasClass("confirm")) {
+
+                        $(this).addClass("done");
+                        $("#delete span").text("Processing..").css("font-weigth", "italic");
+
+                        //chat.server.send(idConversation.toString(), "The @Model.currentUser.role have deleted the conversation", "", "", '@Model.currentUser.id', $("#".concat(idConversation)).attr('user'), '@Model.currentUser.role');
+                        jQuery.ajax({
+                            url: '/Chat/DeleteConversation/' + idConversation,
+                            type: "POST",
+                            data: '',
+                            cache: false,
+                            async: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                chat.server.deleteConversation(idConversation,'@Model.currentUser.id');
+                            }
+                        });
+
+                    } else {
+                        $(this).addClass("confirm");
+                        $("#delete span").text("Are you sure ?");
+                    }
+                });
+
+                //DONE
+                function sendMessage() {
+
+                    if (!$(".contact").hasClass("active"))
+                       return false;
+
+
+                    var inputMessage = $(".emojionearea-editor").text().trim();
+                    let messages = $('#messages-' + idConversation);
+
+
+                    var previewMsgFile = "";
+                    var fileNameDB = "";
+
+                    if (inputMessage === "" && file === null && fileRecord === null)
+                        return false;
+
+                    if (file !== null) {
+
+                        // **************************************    SEND REQUEST TO SERVER WITH FORM DATA/
+
+                        formData = new FormData();
+                        formData.append("file", file);
+
+                        jQuery.ajax({
+                            url: '@Url.Action("UploadFile", "Chat")',
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            async: false,
+                            processData: false,
+                            contentType: false,
+                            success: function(result) {
+                                fileNameDB = '/Content/Files/' +result.toString();
+                               // alert(fileNameDB);
+                            }
+                        });
+                        previewMsgFile = getPreviewMsgFile(fileNameDB);
+
+                    }
+
+                    if (fileRecord !== null) {
+                        // *************************** (record file)   SEND REQUEST TO SERVER WITH FORM DATA/
+                        formData = new FormData();
+                        formData.append("file", fileRecord);
+
+                        jQuery.ajax({
+                            //url: "http://localhost:8089/epione-web/upload",
+                            url: '@Url.Action("UploadFile", "Chat")',
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            async: false,
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                fileNameDB = '/Content/Files/' + result.toString();
+                            }
+                        });
+
+                        previewMsgFile = '<audio class="player" controls title="voice message">' +
+                            ' <source src="' + fileNameDB + '" type="audio/mp3"></audio>';
+
+                    }
+
+                    // Send Msg content request
+
+                    chat.server.send(idConversation.toString(), inputMessage, fileNameDB, previewMsgFile, '@Model.currentUser.id', $("#".concat(idConversation)).attr('user'), '@Model.currentUser.role');
+
+
+                    $(".emojionearea-editor").empty();
+                   // $(".emojionearea-editor").blur();//loose focus
+                    $('#uploadFile').val('');
+                    $("#previewImg").hide();
+                    messages.animate({ scrollTop: 100000 }, "fast");
+                    $(".contact.active").parent().prepend($(".contact.active"));
+                    file = null;
+                    fileRecord = null;
+
+                    Plyr.setup('.player');
+                }
+            });
+
+             chat.client.addNewMessageToPage = function (message, previewMsgFile, idConv, classMsg)
+             {
+                let messagesUL = $('#messages-' + idConv + ' ul');
+                let timeNow = dateFormat(new Date(), "ddd, dd mmm yyyy, h:MM:ss TT", true);
+                let sentTo = $("#" + idConv);
+                let sentToPreview = $("#" + idConv + " .preview");
+
+                let msgLi = "";
+                let msgPreview = "";
+
+                 //if (sentTo.css("display")==='none') {
+                 //    alert();
+                 sentTo.slideDown(1000);
+
+                 //}
+
+
+                if (classMsg === "sent") {
+                    msgLi = '<li class="sent">\n' +
+                        '        <span class="name"><strong>You : </strong> '+timeNow+'</span> ' +
+                        '          <a href="" title="@Model.currentUser.firstName @Model.currentUser.lastName"> ' +
+                        '              <img src="/Content/Files/@Model.currentUser.photo" alt=""></a> ' +
+                        '           <p>' + htmlEncode(message) + previewMsgFile + '</p>' +
+                        '      </li>';
+                    msgPreview = "<span>You: </span>Sent";
+                    sentToPreview.first().css("font-weigth", "italic");
+
+                } else {
+
+                    msgLi = '<li class="replies">' +
+                        '         <span class="name"><strong>' + sentTo.attr('firstName') + ': </strong> ' + timeNow + '</span>' +
+                        '           <a href="" title="' + sentTo.attr('firstName') + ' ' + sentTo.attr('lastName') + '">' +
+                        '                <img src="' + sentTo.attr('photo') + '" alt=""></a>' +
+                        '         <p>' + htmlEncode(message) + previewMsgFile + '</p>' +
+                        '      </li>';
+                    msgPreview = "Sent you";
+                    sentToPreview.first().css("font-style", "italic");
+
+                    $("#messenger").trigger("play");
+                    var beep = new Audio("/Content/Files/messenger.mp3");
+                    beep.play();
+                    updatePlusNewMessages(idConv);
+                }
+
+
+                $(msgLi).appendTo(messagesUL);
+
+
+                // ************************** preview sent / replies  List Contact
+
+                if (previewMsgFile.includes("audio")) {
+                    if (previewMsgFile.includes("voice"))//voice message
+                        sentToPreview.first().html(msgPreview+' a voice message 🎤🎤');
+                    else
+                        sentToPreview.first().html(msgPreview +' an audio file 🎵🎵');
+                } else if (previewMsgFile.includes("video"))
+                    sentToPreview.first().html(msgPreview +' a video 🎬🎬');
+                else if (previewMsgFile.includes("img") && !previewMsgFile.includes("video"))
+                    sentToPreview.first().html(msgPreview +' a photo 🖼️🖼️');
+                else {// it's only a message
+                    msgPreviewRegularMsg = "<span>You: </span>"
+                    if (classMsg.includes("replies"))
+                        msgPreviewRegularMsg = "";
+
+                    if (message.length > 75)
+                        sentToPreview.first().html(msgPreviewRegularMsg +htmlEncode(message.substring(0, 75)));
+                    else
+                        sentToPreview.first().html(msgPreviewRegularMsg+htmlEncode(message));
+                }
+
+                // *********************** END PREVIEW List Contact
+
+
+                sentTo.parent().prepend(sentTo);
+
+                updateNbrAlreadyMessages(idConv);
+
+
+                $('#messages-' + idConv).animate({ scrollTop: 100000 }, "fast");
+
+                Plyr.setup('.player');
+            };
+
+            chat.client.addSeenMessages = function (idConv) {
+
+                let timeNow = dateFormat(new Date(), "ddd, dd mmm yyyy, h:MM:ss TT", true);
+
+                $('#messages-' + idConv +' li:not(:has(.seen))').each(function() {
+                    $('<span class="seen"><i class="fa fa-eye"></i> ' + timeNow+'</span>').appendTo(this).fadeIn(1000);
+                });
+                $("#" + idConv + " .wrap .new-message").fadeOut(500);
+                $("#" + idConv + " .wrap .new-message").text('');
+                $('#messages-' + idConv).animate({ scrollTop: 100000 }, "fast");
+            }
+
+            chat.client.delete = function (idConv) {
+
+
+                $("#contact-profile-" + idConv).fadeOut(1000, function() {
+                   // $(this).remove();
+                });
+                $("#messages-" + idConv).fadeOut(1000, function () {
+                    $("#messages-" + idConv+" ul").empty();
+                });
+                $("#" + idConv).slideUp(1600, function () {
+                    //$(this).remove();
+                });
+                $("#" + idConv).removeClass("active");
+
+                $(".buttons").slideUp(800);
+                $(".message-input").slideUp(800);
+                $(".previewImg").slideUp(800);
+            }
+
+
+        });
+    </script>
+}

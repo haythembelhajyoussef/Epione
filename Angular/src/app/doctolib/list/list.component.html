@@ -1,0 +1,29 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-xl-12 col-lg-12">
+        <h2>Doctors bookable en ligne</h2>
+        <p>
+          <a style="margin-right: 20px;" href="doctolib">NEW RESERVABLE DOCTORS </a>
+          <a style="margin-right: 5px;" href="../doctolib/firstlettre/{{c}}" *ngFor="let c of alphabet">{{c}}</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3" style="width: 25%;padding: 7px;background-color: #fff;"
+               *ngFor="let d of doctolibDoctors">
+            <a [routerLink]="['../doctolib/details',d.path]" style="font-size:14px;">{{d.fullName}}</a>
+            <div style="font-size: 12px;">{{d.speciality}}</div>
+            <div>{{d.address}}</div>
+          </div>
+          <br/><br/><br/>
+        </div>
+        <br/><br/><br/>
+      </div>
+    </div>
+  </div>
+</main>
+
+

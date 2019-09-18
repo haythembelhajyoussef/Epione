@@ -1,0 +1,163 @@
+<main>
+  <div class="container margin_120_95">
+    <div class="main_title">
+      <div class="row">
+        <div><img style="border-radius: 50%"
+                  src="https://res.cloudinary.com/doctolib/image/upload/w_200,h_200,c_fill,g_face/f7j5qosznhjnhshgkeyr.jpg"
+                  width="100" height="100"/>
+          <br/><b>Mourad Chaabouni</b>
+        </div>
+        <div id="menuDashboadr" class="col-md-12 col-sm-12 main-menu">
+          <ul>
+            <li><a href="dashboard">Home</a></li>
+            <li><a href="dashboard/appointment">Appointment</a></li>
+            <li class="submenu">
+              <a href="#0" class="show-submenu">Patient<i class="icon-down-open-mini"></i></a>
+              <ul>
+                <li><a href="dashboard/patient">General</a></li>
+                <li><a href="dashboard/location">Patient per location</a></li>
+              </ul>
+            </li>
+            <li><a href="dashboard/vacation">Vacation</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <h3 class="text-center text-info">Vacation next 3 days</h3>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2 class="m-b-0"
+                    [ngClass]="{'text-success':analyticsService.vacationToDay.value>=75,'text-danger':analyticsService.vacationToDay.value<=25,'text-warning':analyticsService.vacationToDay.value<75&&analyticsService.vacationToDay.value>25}">
+                  {{analyticsService.vacationToDay.value}}%
+                </h2>
+                <h6>{{analyticsService.day}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':analyticsService.vacationToDay.value>=75,'bg-danger':analyticsService.vacationToDay.value<=25,'bg-warning':analyticsService.vacationToDay.value<75&&analyticsService.vacationToDay.value>25}"
+                role="progressbar" [style.width]="analyticsService.vacationToDay.value+'%'" aria-valuenow="68"
+                aria-valuemin="0"
+                aria-valuemax="100">
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2
+                  class="m-b-0"
+                  [ngClass]="{'text-success':analyticsService.vacationToDay1.value>=75,'text-danger':analyticsService.vacationToDay1.value<=25,'text-warning':analyticsService.vacationToDay1.value<75&&analyticsService.vacationToDay1.value>25}">
+                  {{analyticsService.vacationToDay1.value}}</h2>
+                <h6>{{analyticsService.day1}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':analyticsService.vacationToDay1.value>=75,'bg-danger':analyticsService.vacationToDay1.value<=25,'bg-warning':analyticsService.vacationToDay1.value<75&&analyticsService.vacationToDay1.value>25}"
+                role="progressbar" [style.width]="analyticsService.vacationToDay1.value+'%'" aria-valuenow="50"
+                aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2
+                  class="m-b-0"
+                  [ngClass]="{'text-success':analyticsService.vacationToDay2.value>=75,'text-danger':analyticsService.vacationToDay2.value<=25,'text-warning':analyticsService.vacationToDay2.value<75&&analyticsService.vacationToDay2.value>25}">
+                  {{analyticsService.vacationToDay2.value}}</h2>
+                <h6>{{analyticsService.day2}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':analyticsService.vacationToDay2.value>=75,'bg-danger':analyticsService.vacationToDay2.value<=25,'bg-warning':analyticsService.vacationToDay2.value<75&&analyticsService.vacationToDay2.value>25}"
+                role="progressbar" [style.width]="analyticsService.vacationToDay2.value+'%'" aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" style="margin-bottom:30px">
+          <div class="card-body">
+            <h2 style="text-align:center" class="text-info">Top 3 patient of the month January is </h2>
+            <p style="text-align: center;font-size: 60px;" id="demo">
+              <countdown [config]="{leftTime: 10}"
+                         (finished)="onFinished()">
+                $!d! d $!h! h $!m! m $!s! s
+              </countdown>
+            </p>
+            <div></div>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card" style="margin-bottom:30px">
+          <div class="card-body">
+            <div class="competition-podium well center-block">
+              <div class="podium-block bronze">
+                <div class="name"><img style="border-radius: 50%;" [src]="patient3.appointmentDate"
+                                       [alt]="patient3.fullName" width="100" height="100"/></div>
+                <div class="podium"><span>3<sup>ème</sup></span></div>
+              </div>
+              <div class="podium-block gold">
+                <div class="name"><img style="border-radius: 50%;" [src]="patient1.appointmentDate"
+                                       [alt]="patient1.fullName" width="100" height="100"/></div>
+                <div class="podium"><span>1<sup>er</sup></span></div>
+              </div>
+              <div class="podium-block silver">
+                <div class="name"><img style="border-radius: 50%;" [src]="patient2.appointmentDate"
+                                       [alt]="patient2.fullName" width="100"
+                                       height="100"/></div>
+                <div class="podium"><span>2<sup>ème</sup></span></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body" [hidden]="!chart">
+            <canvas id="canvas" class="col-md-12"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body" [hidden]="!chart1">
+            <canvas id="canvas1" class="col-md-12"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- /main -->
+

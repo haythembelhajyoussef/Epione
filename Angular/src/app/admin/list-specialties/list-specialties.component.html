@@ -1,0 +1,39 @@
+<div class="container margin_60_35">
+  <div class="row">
+    <div class="col-lg-12">
+      <div
+        (click)="onClickNave()"
+        id="custom-search-input"
+        style="width:155px;display:inline-block;margin-left:50px;margin-bottom:10px;"
+      >
+        <input
+          type="submit"
+          class="btn_search"
+          style="position:relative"
+          value="Create Specialty"
+        />
+      </div>
+
+      <table id="specialtys" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Specialty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let specialty of specialties">
+            <tr>
+              <td>
+                <a
+                  (click)="onClickNaveToUpdate(specialty.id, specialty.name)"
+                  style="cursor: pointer;"
+                  >{{ specialty.name }}</a
+                >
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

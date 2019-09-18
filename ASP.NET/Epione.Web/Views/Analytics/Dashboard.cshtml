@@ -1,0 +1,242 @@
+﻿<script src="~/Content/Front/js/highcharts.js"></script>
+<script src="~/Content/Front/js/exporting.js"></script>
+<script src="~/Content/Front/js/offline-exporting.js"></script>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+@using Highsoft.Web.Mvc.Charts
+<main>
+    <div class="container margin_120_95">
+        <div class="main_title">
+            <div class="row">
+                <div id="menuDashboadr" class="col-md-12 col-sm-12 main-menu">
+                    <ul>
+                        <li><a href="@Url.Action("Dashboard","Analytics")">Home</a></li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Appointment<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                <li><a href="@Url.Action("Index","AnalyticsAppointment")">General</a></li>
+                                <li><a href="index-2.html">Home Version 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Patient<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                <li><a href="@Url.Action("Index","AnalyticsPatient")">General</a></li>
+                                <li><a href="@Url.Action("PatientPerLocation","AnalyticsPatient")">Patient per location</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Vacation<i class="icon-down-open-mini"></i></a>
+                            <ul>
+                                <li><a href="@Url.Action("Index","Analytics")">General</a></li>
+                                <li><a href="/Analytics/Vacation/month/2018-10-10">Vacation per date</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h3 class="text-center text-info">Vacation next 3 days</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+                    <div class="card-body">
+                        <div class="p-10 no-block text-center">
+                            <div class="align-slef-center">
+                                <h2 class="m-b-0 text-@if (ViewBag.vacationToday >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationToday <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}">@ViewBag.vacationToday%</h2>
+                                <h6>@ViewBag.toDay</h6>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar bg-@if (ViewBag.vacationToday >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationToday <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}"
+                                 role="progressbar" style="width: @ViewBag.vacationToday%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+                    <div class="card-body">
+                        <div class="p-10 no-block text-center">
+                            <div class="align-slef-center">
+                                <h2 class="m-b-0 text-@if (ViewBag.vacationDay1 >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationDay1 <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}">@ViewBag.vacationDay1%</h2>
+                                <h6>@ViewBag.Day1</h6>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar bg-@if (ViewBag.vacationDay1 >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationDay1 <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}" role="progressbar" style="width: @ViewBag.vacationDay1%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div><div class="col-lg-4 col-md-6">
+                <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+                    <div class="card-body">
+                        <div class="p-10 no-block text-center">
+                            <div class="align-slef-center">
+                                <h2 class="m-b-0 text-@if (ViewBag.vacationDay2 >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationDay2 <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}">@ViewBag.vacationDay2%</h2>
+                                <h6>@ViewBag.Day2</h6>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar  bg-@if (ViewBag.vacationDay2 >= 75){ @ViewBag.classSuccess ;}else if (ViewBag.vacationDay2 <= 25){ @ViewBag.classDanger ;}else{ @ViewBag.classWarning ;}" role="progressbar" style="width: @ViewBag.vacationDay2%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div><div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center text-info">Next 5 patients</h3>
+                        <table id="myTable" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Appointment date</th>
+                                    <th>Appointment status</th>
+                                    <th>Diagnosed before</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var obj in ViewBag.resultNextPatient)
+                                {
+                                    <tr>
+                                        <td>@obj.fullName</td>
+                                        <td>@obj.AppointmentDate</td>
+                                        @if (obj.AppointmentStatus == "pending")
+                                        {
+                                            <td><span class="text-warning">Pending  <i class="fa fa-spinner fa-pulse"></i></span> </td>
+                                        }
+                                        else if (obj.AppointmentStatus == "cancelled")
+                                        {
+                                            <td><span class="text-danger">Cancelled  <i class="fa fa-times"></i></span> </td>
+                                        }
+                                        else
+                                        {
+                                            <td><span class="text-success">Treated  <i class="fa fa-check"></i></span> </td>
+                                        }
+                                        @if (obj.diagnosedBefore == "true")
+                                        {
+                                            <td>Yes</td>
+                                        }
+                                        else
+                                        {
+                                            <td><b>The first time</b></td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <span id="mostTime" class="fa fa-4x fa-clock-o"></span>
+
+                        <div id="mostDayChart">
+                            <script type="text/javascript">
+
+                                function formatYAxisLabels() {
+                                    return this.value;
+                                }
+
+                            </script>
+
+                            @(Html.Highsoft().GetHighcharts(
+new Highcharts
+{
+    Title = new Title
+    {
+        Text = "Most day occured"
+    },
+    XAxis = new List<XAxis>
+    {
+            new XAxis
+            {
+                Categories = new List<string> {
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday" },
+                Crosshair = new XAxisCrosshair
+                {
+                    Width = 1
+                }
+            }
+    },
+    YAxis = new List<YAxis>
+    {
+            new YAxis
+            {
+                Title = new YAxisTitle
+                {
+                    Text = "Number days"
+                },
+                Labels = new YAxisLabels
+                {
+                    Formatter = "formatYAxisLabels"
+                },
+                Crosshair = new YAxisCrosshair
+                {
+                    Width = 1
+                }
+            }
+    },
+    Tooltip = new Tooltip
+    {
+        Shared = true
+    },
+    PlotOptions = new PlotOptions
+    {
+        Spline = new PlotOptionsSpline
+        {
+            Marker = new PlotOptionsSplineMarker
+            {
+                Radius = 4,
+                LineColor = "#666666",
+                LineWidth = 1
+            }
+        },
+        Series = {
+            Animation =new Animation{ Duration = 1 ,Enabled=true}
+        }
+    },
+    Series = new List<Series>
+    {
+            new SplineSeries
+            {
+                Name = "Occured",
+                Data = @ViewData["numbersOccured"] as List<SplineSeriesData>,
+            }
+        }
+}
+    , "chart")
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- /main -->
+<script>
+    $("#mostTime").click(function () {
+        var chart = $("#chart");
+        chart.xAxis[0].setCategories(['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']);
+    });
+</script>

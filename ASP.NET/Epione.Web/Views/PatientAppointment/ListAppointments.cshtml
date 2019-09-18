@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ListAppointments";
+}
+
+<main>
+    <div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Category</a></li>
+                <li>Page active</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /breadcrumb -->
+    <div class="container margin_60">
+        <div class="row justify-content-center">
+
+            <h2>List of appointments in pending</h2>
+            <br /><br /><br /><br />
+            <table id="" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Motive</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>StartTime</th>
+                        <th>EndTime</th>
+                        <th>Doctor Name</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        @*@using (Html.BeginForm("CancelPatientAppointment", "PatientAppointment", new { id = '1' }, FormMethod.Post, new { @Style = "display:none;" }))*@
+
+                        @using (Html.BeginForm("CancelPatientAppointment", "PatientAppointment", FormMethod.Post, new { @Style = "display:none;" }))
+                        {
+                            <td> <a class="btn btn-warning" href="@Url.Action("UpdatePatientAppointment", "PatientAppointment")">Report</a> <button type="submit" class="btn btn-danger">Cancel</button></td>
+                        }
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- /row -->
+    <!-- /container -->
+</main>
+

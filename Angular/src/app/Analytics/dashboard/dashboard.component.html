@@ -1,0 +1,182 @@
+<main>
+  <div class="container margin_120_95">
+    <div class="main_title">
+      <div class="row">
+        <div><img style="border-radius: 50%"
+                  src="https://res.cloudinary.com/doctolib/image/upload/w_200,h_200,c_fill,g_face/f7j5qosznhjnhshgkeyr.jpg"
+                  width="100" height="100"/>
+          <br/><b>Mourad Chaabouni</b>
+        </div>
+        <div id="menuDashboadr" class="col-md-12 col-sm-12 main-menu">
+          <ul>
+            <li><a href="dashboard">Home</a></li>
+            <li><a href="dashboard/appointment">Appointment</a></li>
+            <li class="submenu">
+              <a href="#0" class="show-submenu">Patient<i class="icon-down-open-mini"></i></a>
+              <ul>
+                <li><a href="dashboard/patient">General</a></li>
+                <li><a href="dashboard/location">Patient per location</a></li>
+              </ul>
+            </li>
+            <li><a href="dashboard/vacation">Vacation</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <h3 class="text-center text-info">Vacation next 3 days</h3>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2 class="m-b-0"
+                    [ngClass]="{'text-success':vacationToDay.value>=75,'text-danger':vacationToDay.value<=25,'text-warning':vacationToDay.value<75&&vacationToDay.value>25}">
+                  {{vacationToDay.value}}%
+                </h2>
+                <h6>{{day}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':vacationToDay.value>=75,'bg-danger':vacationToDay.value<=25,'bg-warning':vacationToDay.value<75&&vacationToDay.value>25}"
+                role="progressbar" [style.width]="vacationToDay.value+'%'" aria-valuenow="68" aria-valuemin="0"
+                aria-valuemax="100">
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2
+                  class="m-b-0"
+                  [ngClass]="{'text-success':vacationToDay1.value>=75,'text-danger':vacationToDay1.value<=25,'text-warning':vacationToDay1.value<75&&vacationToDay1.value>25}">
+                  {{vacationToDay1.value}}</h2>
+                <h6>{{day1}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':vacationToDay1.value>=75,'bg-danger':vacationToDay1.value<=25,'bg-warning':vacationToDay1.value<75&&vacationToDay1.value>25}"
+                role="progressbar" [style.width]="vacationToDay1.value+'%'" aria-valuenow="50" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card" style="border-radius: 5px;margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="p-10 no-block text-center">
+              <div class="align-slef-center">
+                <h2
+                  class="m-b-0"
+                  [ngClass]="{'text-success':vacationToDay2.value>=75,'text-danger':vacationToDay2.value<=25,'text-warning':vacationToDay2.value<75&&vacationToDay2.value>25}">
+                  {{vacationToDay2.value}}</h2>
+                <h6>{{day2}}</h6>
+              </div>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div
+                class="progress-bar"
+                [ngClass]="{'bg-success':vacationToDay2.value>=75,'bg-danger':vacationToDay2.value<=25,'bg-warning':vacationToDay2.value<75&&vacationToDay2.value>25}"
+                role="progressbar" [style.width]="vacationToDay2.value+'%'" aria-valuenow="75" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="text-center text-info">Next 5 patients</h3>
+            <table id="myTable" class="table table-bordered table-striped table-hover">
+              <thead>
+              <tr>
+                <th>Fullname</th>
+                <th>Appointment date</th>
+                <th>Appointment status</th>
+                <th>Diagnosed before</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let p of next5patients">
+                <td>{{p.fullName}}</td>
+                <td>{{p.appointmentDate}}</td>
+                <td>
+                  <span *ngIf="p.appointmentStatus=='pending'" class="text-warning">Pending  <i
+                    class="fa fa-spinner fa-pulse"></i></span>
+                  <span *ngIf="p.appointmentStatus=='cancelled'" class="text-danger">Cancelled  <i
+                    class="fa fa-times"></i></span>
+                  <span *ngIf="p.appointmentStatus=='treated'" class="text-success">Treated  <i class="fa fa-check"></i></span>
+                </td>
+                <td *ngIf="p.diagnosedBefore=='true'">Yes</td>
+                <td *ngIf="p.diagnosedBefore=='false'"><b>The first time</b></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body" [hidden]="!chart">
+            <h3 class="text-center text-info">Most day occured</h3>
+            <span [hidden]="!occ" class="fa fa-4x fa-clock-o" (click)="mostTime()"></span>
+            <span [hidden]="occ" class="fa fa-4x fa-calendar-o" (click)="mostDay()"></span>
+            <span class="fa fa-4x fa-info-circle" style="margin-left: 80%" data-toggle="modal"
+                  data-target="#exampleModal" (click)="suggest()"></span>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Information and Suggestion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div [innerHTML]="messageSuggest"></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body" [hidden]="!chart1">
+            <h3 class="text-center text-info">Percentage appointment per status</h3>
+            <canvas id="canvas1"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+<!-- /main -->
+

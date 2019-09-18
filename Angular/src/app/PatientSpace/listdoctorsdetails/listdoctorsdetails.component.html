@@ -1,0 +1,205 @@
+<main>
+  <div id="breadcrumb">
+    <div class="container">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="listdoctors">List Doctors</a></li>
+        <li>Make appointment</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /breadcrumb -->
+
+
+  <div class="container margin_60" *ngFor="let doc of listdoctordetail">
+    <div class="row">
+      <aside class="col-xl-3 col-lg-4" id="sidebar">
+        <div class="box_profile">
+          <figure>
+            <img src="assets/img/doctor.jpg" alt="" class="img-fluid">
+          </figure>
+          <small>{{doc.specialty.name}}</small>
+          <h1>DR. {{doc.lastName}} {{doc.firstName}}</h1>
+          <span class="rating">
+                            <i class="icon_star voted"></i>
+                            <i class="icon_star voted"></i>
+                            <i class="icon_star voted"></i>
+                            <i class="icon_star voted"></i>
+                            <i class="icon_star"></i>
+                            <small>(145)</small>
+                            <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="assets/img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+                        </span>
+          <ul class="statistic">
+            <li>854 Views</li>
+            <li>124 Patients</li>
+          </ul>
+          <ul class="contacts">
+            <li><h6>Address</h6>{{doc.address}}</li>
+            <li><h6>Phone</h6><a href="tel://000434323342">+216 {{doc.phoneNumber}}</a></li>
+          </ul>
+        </div>
+      </aside>
+      <!-- /asdide -->
+
+      <div class="col-xl-9 col-lg-8">
+
+
+        <form #appointmentForm="ngForm" >
+
+        <div class="box_general_2 add_bottom_45">
+          <div class="main_title_4">
+            <h3><i class="icon_circle-slelected"></i>Select your date and time</h3>
+          </div>
+
+          <div class="row add_bottom_45">
+            <div class="col-lg-7">
+              <div class="form-group">
+
+                <input type="date" class="form-control" placeholder="Choose your date" id="date" name="date" required [(ngModel)]="appointment.date" #date="ngModel">
+
+                <br>
+                <div *ngIf="date.value != null">
+                <div class="shortcode-notification alert alert-danger" *ngIf=" !getDiferenceInDays(date.value)">
+                  You have chosen an invalid date before the current date.
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="form-group">
+                <select class="form-control"  id="startTime" name="startTime" required [(ngModel)]="appointment.startTime" #startTime="ngModel">
+
+                  <option value="Select you time">Select you time</option>
+
+                  <option  *ngFor="let time of listalltimes" value="{{time.name}}">{{time.name}}</option>
+
+                </select>
+                <br>
+
+                <div class="shortcode-notification alert alert-danger" [hidden]="startTime.value != null">
+                  startTime is required.
+                </div>
+
+                <div class="shortcode-notification alert alert-danger" [hidden]="startTime.value != 'Select you time'">
+                   startTime is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- /row -->
+
+          <div class="main_title_4">
+            <h3><i class="icon_circle-slelected"></i>Select visit - motive</h3>
+          </div>
+          <ul class="treatments clearfix">
+
+              <div class="form-group">
+                <select class="form-control" id="motive" name="motive" required [(ngModel)]="appointment.motive" #motive="ngModel">
+                  <option  *ngFor="let motive of listmotivesbyspecialty" value="{{motive.id}}">{{motive.name}}</option>
+
+                </select>
+                <br>
+                <div class="shortcode-notification alert alert-danger" [hidden]="motive.value != null">
+                  <div> Motive is required.</div>
+                </div>
+              </div>
+
+
+
+
+          </ul>
+
+          <div class="main_title_4">
+            <h3><i class="icon_circle-slelected"></i>Write visit - message (Optional)</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea rows="7" cols="50" type="text" class="form-control" placeholder="Write your message" id="message" name="message" required [(ngModel)]="appointment.message" #message="ngModel" minlength="5" maxlength="20"></textarea>
+              </div>
+
+              <br>
+              <div class="shortcode-notification alert alert-danger" [hidden]="message.value">
+                 Message is required
+              </div>
+
+              <div class="shortcode-notification alert alert-danger"  *ngIf="message?.errors?.minlength">
+                The minimum length is {{message?.errors?.minlength.requiredLength}}. You typed {{message?.errors?.minlength.actualLength}}
+              </div>
+
+              <div class="shortcode-notification alert alert-danger" *ngIf="message?.errors?.maxlength">
+                The maximum length is 20
+              </div>
+
+              <div id="notification" ></div>
+            </div>
+          </div>
+          <hr>
+          <div class="text-center">
+            <button  (click)="Check(date.value,startTime.value)"  [disabled]="appointmentForm.invalid" id="subForm1" class="btn_1 medium" style="block: none; margin:auto;">Check availability</button>
+          </div>
+          <br /><br />
+          <div class="text-center"><button type="submit"  (click)="AddAppointment(appointment)" id="subForm" class="btn_1 medium" style="display: none; margin:auto;">Make Appointment</button></div>
+        </div>
+        <!-- /box_general -->
+        </form>
+
+
+
+
+
+        <div class="tabs_styled_2">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-expanded="true">General info</a>
+            </li>
+
+          </ul>
+          <!--/nav-tabs -->
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+
+              <div class="indent_title_in">
+                <i class="pe-7s-user"></i>
+                <h3>Professional statement</h3>
+                <p>{{doc.specialty.name}}</p>
+              </div>
+              <div class="wrapper_indent">
+                <p>{{doc.description}}</p>
+                <h6>Specialtys</h6>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <ul class="bullets" *ngFor="let motive of listmotivesbyspecialty">
+
+                      <li>{{motive.name}}</li>
+
+                    </ul>
+                  </div>
+
+                </div>
+                <!-- /row-->
+              </div>
+              <!-- /wrapper indent -->
+
+              <hr>
+
+
+
+            </div>
+            <!-- /tab_2 -->
+            <!-- /tab_3 -->
+          </div>
+          <!-- /tab-content -->
+        </div>
+        <!-- /tabs_styled -->
+      </div>
+
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+  </div>
+
+
+  <!-- /container -->
+</main>

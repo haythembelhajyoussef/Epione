@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "ListAppointmentsTreated";
+}
+
+<main>
+    <div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Category</a></li>
+                <li>Page active</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /breadcrumb -->
+    <div class="container margin_60">
+        <div class="row justify-content-center">
+
+            <h2>List of appointments in pending</h2>
+            <br /><br /><br /><br />
+            <table id="" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Motive</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>StartTime</th>
+                        <th>EndTime</th>
+                        <th>Doctor Name</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var r in ViewBag.result1)
+                    {
+                        if (@r.status == "treated")
+                        {
+                            <tr>
+                                <td>@r.motive.name</td>
+                                <td>@r.description</td>
+                                <td>@r.date</td>
+                                <td>@r.startTime</td>
+                                <td>@r.endTime</td>
+                                <td>@r.doctor.firstName  @r.doctor.lastName</td>
+                                <td>@r.doctor.address</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <!-- /row -->
+    <!-- /container -->
+</main>
+

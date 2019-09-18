@@ -1,0 +1,246 @@
+﻿/* Shared */
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    width: 70%;
+    margin: 0.2em;
+    padding: 0 15px 0 46px;
+    border: none;
+    text-align: left;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 0.2em;
+    font-size: 16px;
+    color: #FFF;
+}
+
+    .loginBtn:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 34px;
+        height: 100%;
+    }
+
+    .loginBtn:focus {
+        outline: none;
+    }
+
+    .loginBtn:active {
+        box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+    }
+
+
+/* Facebook */
+.loginBtn--facebook {
+    background-color: #059bde;
+    /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    text-shadow: 0 -1px 0 #354C8C;
+}
+
+    .loginBtn--facebook:before {
+        border-right: #364e92 1px solid;
+        background: url('../img/icon_doctolib.png') 6px 6px no-repeat;
+    }
+
+    .loginBtn--facebook:hover,
+    .loginBtn--facebook:focus {
+        background-color: #0f89c0;
+    }
+
+.modal {
+    text-align: center;
+    padding: 0 !important;
+}
+
+    .modal:before {
+        content: '';
+        display: inline-block;
+        height: 10%;
+        vertical-align: middle;
+        margin-right: -4px;
+    }
+
+.modal-dialog {
+    display: block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#menuDashboadr {
+    text-align: right;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+    #menuDashboadr ul {
+        margin: 0;
+        font-size: 13px;
+        font-size: 0.8125rem;
+    }
+
+        #menuDashboadr ul li {
+            display: inline-block;
+            padding-right: 8px;
+            margin-right: 3px;
+            position: relative;
+        }
+
+            #menuDashboadr ul li a {
+                font-size: 14px;
+                color: #c3c4c7;
+                font-weight: bold;
+            }
+
+                #menuDashboadr ul li a:hover {
+                    color: #4886ff;
+                }
+
+
+/*============================================================== 
+Easy pie chart 
+ ============================================================== */
+.chart {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    .chart canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .chart.chart-widget-pie {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+.pie-chart > span {
+    left: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.chart > span > img {
+    left: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    width: 60%;
+    height: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0 auto;
+}
+
+.percent {
+    display: inline-block;
+    line-height: 100px;
+    z-index: 2;
+    font-weight: 600;
+    font-size: 18px;
+    color: #263238;
+}
+
+    .percent:after {
+        content: '%';
+        margin-left: 0.1em;
+        font-size: .8em;
+    }
+    /* CSS used here will be applied after bootstrap.css */
+
+
+.competition-podium {
+    height: 250px;
+    position: relative;
+    margin:50px;
+  	display: inline-block;
+    background:#f6f3ed;
+}
+.competition-podium .podium-block {
+    width: 110px;
+    text-align: left;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+}
+.competition-podium .podium-block .place {
+    font-size: 1em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 15px;
+}
+.competition-podium .podium-block .sum {
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 70px;
+}
+
+.competition-podium .podium-block.bronze {
+    color: #e6d6bf;
+    left: 10px;
+}
+.competition-podium .podium-block.bronze .podium {
+    background: #e6d6bf;
+    height: 0px;
+}
+.competition-podium .podium-block.bronze .name {
+    color: #856e4e;
+}
+
+.competition-podium .podium-block.gold {
+    color: #E87E04;
+    left: 120px;
+}
+.competition-podium .podium-block.gold .podium {
+    background: #ead679;
+    height: 0px;
+}
+.competition-podium .podium-block.gold .name {
+    color: #856e4e;
+    text-align:center
+}
+
+.competition-podium .podium-block.silver {
+    color: #cbd9de;
+    left: 230px;
+}
+.competition-podium .podium-block.silver .podium {
+    background: #cbd9de;
+    height: 0px;
+}
+.competition-podium .podium-block.silver .name {
+    color: #856e4e;
+  text-align:center
+}
+.podium {
+    display: table;
+    width: 100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.podium > * {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #4D4D4D;
+    font-size: 1.5em;
+}

@@ -1,0 +1,169 @@
+<main>
+  <div id="hero_register">
+    <div class="container margin_120_95">
+      <div class="row">
+        <div class="col-lg-6">
+          <h1>It's time to find you!</h1>
+          <p class="lead">Te pri adhuc simul. No eros errem mea. Diam mandamus has ad. Invenire senserit ad has, has ei
+            quis iudico, ad mei nonumes periculis.</p>
+          <div class="box_feat_2">
+            <i class="pe-7s-map-2"></i>
+            <h3>Let patients to Find you!</h3>
+            <p>Ut nam graece accumsan cotidieque. Has voluptua vivendum accusamus cu. Ut per assueverit temporibus
+              dissentiet.</p>
+          </div>
+          <div class="box_feat_2">
+            <i class="pe-7s-date"></i>
+            <h3>Easly manage Bookings</h3>
+            <p>Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet. Eum no atqui putant
+              democritum, velit nusquam sententiae vis no.</p>
+          </div>
+          <div class="box_feat_2">
+            <i class="pe-7s-phone"></i>
+            <h3>Instantly via Mobile</h3>
+            <p>Eos eu epicuri eleifend suavitate, te primis placerat suavitate his. Nam ut dico intellegat reprehendunt,
+              everti audiam diceret in pri, id has clita consequat suscipiantur.</p>
+          </div>
+        </div>
+        <!-- /col -->
+        <div class="col-lg-5 ml-auto">
+          <div class="box_form">
+            <form>
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Last Name">
+                  </div>
+                </div>
+              </div>
+              <!-- /row -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Specialization">
+                  </div>
+                </div>
+              </div>
+              <!-- /row -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="City">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select class="form-control">
+                      <option value="">Country</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- /row -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Mobile Phone">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Office Phone">
+                  </div>
+                </div>
+              </div>
+              <!-- /row -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email Address">
+                  </div>
+                </div>
+              </div>
+              <!-- /row -->
+              <p class="text-center add_top_30"><input type="submit" class="btn_1" value="Submit"></p>
+              <button style="top: 50%;left: 15%" type="button" class="loginBtn loginBtn--facebook" data-toggle="modal"
+                      data-target="#myModal">
+                Login with Doctolib
+              </button>
+              <div class="text-center">
+                <small>Ut nam graece accumsan cotidieque. Has voluptua vivendum accusamus cu. Ut per assueverit
+                  temporibus dissentiet.
+                </small>
+              </div>
+            </form>
+          </div>
+          <!-- /box_form -->
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /hero_register -->
+  <!-- The Modal -->
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #f="ngForm" (ngSubmit)="addDoctolibDoctor(f)">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">Login with Doctolib</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group has-feedback col-12">
+                <label for="path">Your Doctolib Profile</label>
+                <input type="text" class="form-control" [ngClass]="{'is-valid':checkPath,'is-invalid':!checkPath}"
+                       id="path" name="path" required ngModel (keyup)="onCheckPath(f.value.path)">
+                <div [hidden]="checkPath" style="color:#dc3545">Sorry but your path is wrong!</div>
+              </div>
+            </div>
+            <div class="row" [hidden]="!checkPath">
+              <div class="form-group col-12">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email"
+                       data-error="Bruh, that email address is invalid"
+                       required [(ngModel)]="doctor.email"
+                       [ngClass]="{'is-valid':f.value.email,'is-invalid':!f.value.email}">
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="row" [hidden]="!checkPath">
+              <div class="form-group col-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required
+                       [(ngModel)]="doctor.password"
+                       [ngClass]="{'is-valid':f.value.password==f.value.passwordC,'is-invalid':f.value.password!=f.value.passwordC}">
+              </div>
+              <div class="form-group col-6">
+                <label for="passwordC">Confirm your password</label>
+                <input type="password" class="form-control" id="passwordC" name="passwordC" required ngModel
+                       [ngClass]="{'is-valid':f.value.password==f.value.passwordC,'is-invalid':f.value.password!=f.value.passwordC}">
+                <div [hidden]="f.value.password==f.value.passwordC" id="passwordFeedback" style="color:#dc3545">
+                  Passwords do not match. Try Again.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="continueBtn" type="submit" style="background-color:#059bde;color:#fff" class="btn">
+              Continue as {{doctor.fullName}}
+              <span id="fullName" style="font-weight:bold"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</main>
